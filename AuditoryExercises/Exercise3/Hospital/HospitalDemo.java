@@ -11,7 +11,6 @@ interface DoctorEvaluator {
 }
 
 class HighExpertiseEvaluator implements DoctorEvaluator {
-
     @Override
     public boolean evaluate(Doctor doctor) {
         return doctor.getLevel() >= 7;
@@ -181,7 +180,6 @@ class EmergencyRoom {
                 mutator.accept(doctors[i]);
             }
         }
-
     }
 
     public int countForEvaluation(DoctorEvaluator evaluator) {
@@ -214,7 +212,6 @@ class EmergencyRoom {
             sb.append(doctor.toString()).append("\n");
         }
         return sb.toString();
-
     }
 }
 
