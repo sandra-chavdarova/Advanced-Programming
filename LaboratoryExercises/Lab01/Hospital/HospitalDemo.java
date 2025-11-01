@@ -1,4 +1,4 @@
-package AuditoryExercises.Exercise3.Hospital;
+package LaboratoryExercises.Lab01.Hospital;
 
 import java.util.Scanner;
 import java.util.function.Predicate;
