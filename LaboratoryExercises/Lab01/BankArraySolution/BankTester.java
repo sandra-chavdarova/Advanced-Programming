@@ -1,3 +1,5 @@
+package LaboratoryExercises.Lab01.BankArraySolution;
+
 import LaboratoryExercises.Lab01.BankArraySolution.*;
 
 import java.util.*;
