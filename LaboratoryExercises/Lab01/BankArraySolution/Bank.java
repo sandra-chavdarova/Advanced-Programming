@@ -71,13 +71,14 @@ public class Bank {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Bank bank = (Bank) o;
-        return Double.compare(transfers, bank.transfers) == 0 && Double.compare(provisions, bank.provisions) == 0 && Objects.deepEquals(accounts, bank.accounts) && Objects.equals(name, bank.name);
+        return Double.compare(transfers, bank.transfers) == 0 && Double.compare(provisions, bank.provisions) == 0 && Objects.equals(name, bank.name) && Objects.deepEquals(accounts, bank.accounts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Arrays.hashCode(accounts), name, transfers, provisions);
+        return Objects.hash(name, Arrays.hashCode(accounts), transfers, provisions);
     }
 }
