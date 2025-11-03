@@ -1,4 +1,4 @@
-package LaboratoryExercises.Lab01.Bank;
+package LaboratoryExercises.Lab01.BankArraySolution;
 
 import java.util.Objects;
 import java.util.Random;

@@ -52,9 +52,9 @@ public class Bank {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Name: ").append(name).append("\n\n");
-        for (Account a : accounts) {
-            sb.append(a);
+        sb.append(String.format("Name: %s", name));
+        for (Account account : accounts) {
+            sb.append(String.format("%s", account));
         }
         return sb.toString();
     }
