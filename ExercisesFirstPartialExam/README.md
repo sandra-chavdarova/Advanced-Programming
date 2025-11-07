@@ -342,7 +342,7 @@ AM/PM FORMAT
 11:30 PM
 ```
 
-# [Archive Store (со formatter)](ArchiveStoreTest.java) [Archive Store (без formatter)](ArchiveStoreTest2.java)
+# [Archive Store](ArchiveStoreTest.java)
 Да се имплементира класа ArchiveStore во која се чува листа на архиви (елементи за архивирање).
 
 Секој елемент за архивирање Archive има:
@@ -361,7 +361,6 @@ AM/PM FORMAT
 
 За секоја акција на архивирање во текст треба да се додаде следната порака Item [id] archived at [date], додека за секоја акција на отварање архива треба да се додаде Item [id] opened at [date]. При отварање ако се работи за LockedArhive и датумот на отварање е пред датумот кога може да се отвори, да се додаде порака Item [id] cannot be opened before [date]. Ако се работи за SpecialArhive и се обидиеме да ја отвориме повеќе пати од дозволениот број (maxOpen) да се додаде порака Item [id] cannot be opened more than [maxOpen] times.
 
-### With formatter
 Input:
 ```angular2html
 Locked Archive Count
@@ -396,42 +395,4 @@ Item 3 opened at Thu Nov 07 00:00:00 UTC 2013
 Item 3 opened at Thu Nov 07 00:00:00 UTC 2013
 Item 3 opened at Thu Nov 07 00:00:00 UTC 2013
 Item 3 cannot be opened more than 5 times
-```
-
-### Without formatter
-Input:
-```angular2html
-Locked Archive Count
-2
-Id Date (Days in future)
-1 50
-2 -25
-Special Archive Count
-2
-Id MaxOpen
-3 5
-4 2
-Opening
-1 2 3 7 4 4 4 3 3 3 3 3
-```
-
-Output:
-```angular2html
-Item with id 8 doesn't exist
-Item with id 9 doesn't exist
-Item 1 archived at 2013-10-07
-Item 2 archived at 2013-10-07
-Item 3 archived at 2013-10-07
-Item 4 archived at 2013-10-07
-Item 5 archived at 2013-10-07
-Item 2 opened at 2013-10-07
-Item 3 cannot be opened before 2013-11-21
-Item 1 cannot be opened before 2013-11-26
-Item 4 opened at 2013-10-07
-Item 5 opened at 2013-10-07
-Item 4 opened at 2013-10-07
-Item 4 cannot be opened more than 2 times
-Item 5 opened at 2013-10-07
-Item 5 opened at 2013-10-07
-Item 5 cannot be opened more than 3 times
 ```
