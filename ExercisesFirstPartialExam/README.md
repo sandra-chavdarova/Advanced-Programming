@@ -126,3 +126,273 @@ Folder name:       root Folder size:      13070
 ===PRINTING THE SIZE OF THE LARGEST FILE IN THE FILE SYSTEM===
 12000
 ```
+
+# [Log System](LoggerTest.java)
+Потребно е да се развие систем за процесирање на логови. За секој лог треба да се чува пораката од логот (String), типот на логот (String) и временски печат (long). За таа цел комплетирајте го интерфејсот ILog.
+
+За да се процесираат логовите ќе се користи генеричкиот интерфејс LogProcessor. Овој интерфејс има само еден метод со потпис: ArrayList processLogs (ArrayList logs). Методот добива влезен аргумент логови коишто треба да ги процесира, а враќа резултат процесирани логови. Интерфејсот ви е даден и за истиот треба да ги пополните само генеричките параметри.
+
+Дадена ви е класата LogSystem во којашто се чува листа на логови. За класата да се дефинираат соодветните генерички параметри, да се имплементира конструктор LogSystem(ArrayList elements), како и да се комплетира методот printResults().
+
+Во овој метод потребно е да креирате три конкретни процесори на логови (со помош на ламбда изрази):
+1. Процесор којшто ќе ги врати само логовите коишто се од тип INFO
+2. Процесор којшто ќе ги врати само логовите чиишто пораки се пократки од 100 карактери
+3. Процесор којшто ќе ги врати логовите сортирани според временскиот печат во растечки редослед (од најстар кон најнов лог).
+
+Input:
+```angular2html
+3
+2020-11-18 02:20:20 [dag-scheduler-event-loop] INFO FairSchedulableBuilder: Added task set TaskSet_550.0 tasks to pool 8528611190673175966
+2020-11-18 02:20:20 [dispatcher-event-loop-3] INFO TaskSetManager: Starting task 0.0 in stage 550.0 (TID 4051, 10.162.242.30, executor 1, partition 0, PROCESS_LOCAL)
+2020-11-18 02:20:20 [dispatcher-event-loop-3] INFO TaskSetManager: Starting task 1.0 in stage 550.0 (TID 4052, 10.162.235.85, executor 0, partition 1, PROCESS_LOCAL)
+3
+ERROR Some_short_message-8 8878539449911250943
+ERROR Some_loooooooooooooooooooooooooong_dummy_message_that_should_be_more_than_100_charsszzzzzzzzzzzzzzzz-64 7026192678309265809
+INFO Some_short_message-13 2051624829434088144
+```
+
+Output:
+```angular2html
+===REAL LOGS SYSTEM RESULTS===
+RESULTS FROM THE FIRST LOG PROCESSOR
+1605666020100 [INFO] FairSchedulableBuilder: Added task set TaskSet_550.0 tasks to pool 8528611190673175966
+1605666020101 [INFO] TaskSetManager: Starting task 0.0 in stage 550.0 (TID 4051, 10.162.242.30, executor 1, partition 0, PROCESS_LOCAL)
+1605666020102 [INFO] TaskSetManager: Starting task 1.0 in stage 550.0 (TID 4052, 10.162.235.85, executor 0, partition 1, PROCESS_LOCAL)
+RESULTS FROM THE SECOND LOG PROCESSOR
+1605666020100 [INFO] FairSchedulableBuilder: Added task set TaskSet_550.0 tasks to pool 8528611190673175966
+RESULTS FROM THE THIRD LOG PROCESSOR
+1605666020100 [INFO] FairSchedulableBuilder: Added task set TaskSet_550.0 tasks to pool 8528611190673175966
+1605666020101 [INFO] TaskSetManager: Starting task 0.0 in stage 550.0 (TID 4051, 10.162.242.30, executor 1, partition 0, PROCESS_LOCAL)
+1605666020102 [INFO] TaskSetManager: Starting task 1.0 in stage 550.0 (TID 4052, 10.162.235.85, executor 0, partition 1, PROCESS_LOCAL)
+===DUMMY LOGS SYSTEM RESULTS===
+RESULTS FROM THE FIRST LOG PROCESSOR
+DummyLog&#123;type='INFO', message='Some_short_message-13', timestamp=2051624829434088144}
+RESULTS FROM THE SECOND LOG PROCESSOR
+DummyLog{type='ERROR', message='Some_short_message-8', timestamp=8878539449911250943}
+DummyLog{type='INFO', message='Some_short_message-13', timestamp=2051624829434088144}
+RESULTS FROM THE THIRD LOG PROCESSOR
+DummyLog{type='INFO', message='Some_short_message-13', timestamp=2051624829434088144}
+DummyLog{type='ERROR', message='Some_loooooooooooooooooooooooooong_dummy_message_that_should_be_more_than_100_charsszzzzzzzzzzzzzzzz-64', timestamp=7026192678309265809}
+DummyLog{type='ERROR', message='Some_short_message-8', timestamp=8878539449911250943}
+```
+
+# [Min Max](MinMax.java)
+Да се имплемнтира генеричка класа MinMax од два споредливи објекти (минимум/максимум). За класата да се имплементираат:
+- MinMax()-default конструктор
+- void update(T element) - метод за ажурирање на тековните минимум/максимум.
+- T max() - го враќа најголемиот елемент
+- T min() - го враќа најмалиот елемент
+- да се преоптовари методот toString() кој враќа стринг составен од минималниот и максималниот елемент и бројот на елементи обработени во методот update кои се различни од тековниот минимум/максимум, разделени со празно место.
+Во класата не смеат да се чуваат елементите кои се обработуваат во методот update, освен тековниот минимум/максимум.
+
+Input:
+```angular2html
+6
+abc
+xyz
+abc
+xyz
+zzz
+blatr
+12
+8
+8
+5
+55
+13
+55
+```
+
+Output:
+```angular2html
+abc zzz 3
+
+5 55 4
+```
+
+# [Canvas](Shapes.java)
+Да се имплементира класа Canvas на која ќе чуваат различни форми. За секоја форма се чува:
+- id:String
+- color:Color (enum дадена)
+
+Притоа сите форми треба да имплментираат два интерфејси:
+- Scalable - дефиниран со еден метод void scale(float scaleFactor) за соодветно зголемување/намалување на формата за дадениот фактор
+- Stackable - дефиниран со еден метод float weight() кој враќа тежината на формата (се пресметува како плоштина на соодветната форма)
+
+Во класата Canvas да се имплементираат следните методи:
+- void add(String id, Color color, float radius) за додавање круг
+- void add(String id, Color color, float width, float height) за додавање правоаголник
+
+При додавањето на нова форма, во листата со форми таа треба да се смести на соодветното место според нејзината тежина. Елементите постојано се подредени според тежината во опаѓачки редослед.
+- void scale(String id, float scaleFactor) - метод кој ја скалира формата со даденото id за соодветниот scaleFactor. Притоа ако има потреба, треба да се изврши преместување на соодветните форми, за да се задржи подреденоста на елементите.
+Не смее да се користи сортирање на листата.
+- toString() - враќа стринг составен од сите фигури во нов ред. За секоја фигура се додава:
+```
+C: [id:5 места од лево] [color:10 места од десно] [weight:10.2 места од десно] ако е круг
+
+R: [id:5 места од лево] [color:10 места од десно] [weight:10.2 места од десно] ако е правоаголник
+```
+Користење на instanceof ќе се смета за неточно решение!
+
+Input:
+```angular2html
+1 c1 RED 15
+1 c2 GREEN 7
+1 c3 RED 9
+2 r1 BLUE 4 7
+2 r2 GREEN 10 8
+3 c2 2.4
+3 r1 5.1
+```
+
+Output:
+```angular2html
+ORIGNAL:
+C: c1   RED           706.86
+C: c3   RED           254.47
+C: c2   GREEN         153.94
+R: r2   GREEN          80.00
+R: r1   BLUE           28.00
+AFTER SCALING: c2 2.40
+C: c2   GREEN         886.68
+C: c1   RED           706.86
+C: c3   RED           254.47
+R: r2   GREEN          80.00
+R: r1   BLUE           28.00
+ORIGNAL:
+C: c2   GREEN         886.68
+C: c1   RED           706.86
+C: c3   RED           254.47
+R: r2   GREEN          80.00
+R: r1   BLUE           28.00
+AFTER SCALING: r1 5.10
+C: c2   GREEN         886.68
+R: r1   BLUE          728.28
+C: c1   RED           706.86
+C: c3   RED           254.47
+R: r2   GREEN          80.00
+```
+
+# [Timetable](TimesTest.java)
+Да се имплементира класа TimeTable која ќе чита од влезен тек (стандарден влез, датотека, ...) податоци за времиња во 24-часовен формат. Сите времиња се разделени со едно празно место, а во самото време часот и минутите може да бидат разделени со ```:``` или ```.```. Пример за форматот на податоците:
+
+11:15 0.45 23:12 15:29 18.46
+
+Ваша задача е да ги имплементирате методите:
+- TimeTable() - default конструктор
+- void readTimes(InputStream inputStream) - метод за читање на податоците
+- void writeTimes(OutputStream outputStream, TimeFormat format) - метод кој ги печати сите времиња сортирани во растечки редослед во зададениот формат (24 часовен или AM/PM).
+- Методот за читање readTimes фрла исклучоци од тип UnsupportedFormatException ако времињата се разделени со нешто друго што не е : или . и InvalidTimeException ако времето (часот или минутите) е надвор од дозволениот опсег (0-23, 0-59). И двата исклучоци во пораката getMessage() треба да го вратат влезниот податок кој го предизвикал исклучокот. Сите времиња до моментот кога ќе се фрли некој од овие два исклучоци треба да си останат вчитани.
+
+Правила за конверзија од 24-часовен формат во AM/PM:
+- за првиот час од денот (0:00 - 0:59), додадете 12 и направете го "AM"
+- од 1:00 до 11:59, само направето го "AM"
+- од 12:00 до 12:59, само направето го "PM"
+- од 13:00 до 23:59 одземете 12 и направете го "PM"
+
+Input:
+```angular2html
+10.10
+11.11
+12.12
+0.15
+1:10
+20:20
+13:15
+17:20
+23:30
+19.19
+17:21
+19.59
+12:00
+11:59
+```
+
+Output:
+```angular2html
+24 HOUR FORMAT
+ 0:15
+ 1:10
+10:10
+11:11
+11:59
+12:00
+12:12
+13:15
+17:20
+17:21
+19:19
+19:59
+20:20
+23:30
+AM/PM FORMAT
+12:15 AM
+ 1:10 AM
+10:10 AM
+11:11 AM
+11:59 AM
+12:00 PM
+12:12 PM
+ 1:15 PM
+ 5:20 PM
+ 5:21 PM
+ 7:19 PM
+ 7:59 PM
+ 8:20 PM
+11:30 PM
+```
+
+# [Archive Store](ArchiveStoreTest.java)
+Да се имплементира класа ArchiveStore во која се чува листа на архиви (елементи за архивирање).
+
+Секој елемент за архивирање Archive има:
+- id - цел број
+- dateArchived - датум на архивирање.
+
+Постојат два видови на елементи за архивирање, LockedArchive за кој дополнително се чува датум до кој не смее да се отвори dateToOpen и SpecialArchive за кој се чуваат максимален број на дозволени отварања maxOpen. За елементите за архивирање треба да се обезбедат следните методи:
+- LockedArchive(int id, Date dateToOpen) - конструктор за заклучена архива
+- SpecialArchive(int id, int maxOpen) - конструктор за специјална архива
+
+За класата ArchiveStore да се обезбедат следните методи:
+- ArchiveStore() - default конструктор
+- void archiveItem(Archive item, Date date) - метод за архивирање елемент item на одреден датум date
+- void openItem(int id, Date date) - метод за отварање елемент од архивата со зададен id и одреден датум date. Ако не постои елемент со даденото id треба да се фрли исклучок од тип NonExistingItemException со порака Item with id [id] doesn't exist.
+- String getLog() - враќа стринг со сите пораки запишани при архивирањето и отварањето архиви во посебен ред.
+
+За секоја акција на архивирање во текст треба да се додаде следната порака Item [id] archived at [date], додека за секоја акција на отварање архива треба да се додаде Item [id] opened at [date]. При отварање ако се работи за LockedArhive и датумот на отварање е пред датумот кога може да се отвори, да се додаде порака Item [id] cannot be opened before [date]. Ако се работи за SpecialArhive и се обидиеме да ја отвориме повеќе пати од дозволениот број (maxOpen) да се додаде порака Item [id] cannot be opened more than [maxOpen] times.
+
+Input:
+```angular2html
+Locked Archive Count
+2
+Id Date (Days in future)
+1 50
+2 -25
+Special Archive Count
+2
+Id MaxOpen
+3 5
+4 2
+Opening
+1 2 3 7 4 4 4 3 3 3 3 3
+```
+
+Output:
+```angular2html
+Item with id 7 doesn't exist
+Item 1 archived at Thu Nov 07 00:00:00 UTC 2013
+Item 2 archived at Thu Nov 07 00:00:00 UTC 2013
+Item 3 archived at Thu Nov 07 00:00:00 UTC 2013
+Item 4 archived at Thu Nov 07 00:00:00 UTC 2013
+Item 1 cannot be opened before Fri Dec 27 00:00:00 UTC 2013
+Item 2 opened at Thu Nov 07 00:00:00 UTC 2013
+Item 3 opened at Thu Nov 07 00:00:00 UTC 2013
+Item 4 opened at Thu Nov 07 00:00:00 UTC 2013
+Item 4 opened at Thu Nov 07 00:00:00 UTC 2013
+Item 4 cannot be opened more than 2 times
+Item 3 opened at Thu Nov 07 00:00:00 UTC 2013
+Item 3 opened at Thu Nov 07 00:00:00 UTC 2013
+Item 3 opened at Thu Nov 07 00:00:00 UTC 2013
+Item 3 opened at Thu Nov 07 00:00:00 UTC 2013
+Item 3 cannot be opened more than 5 times
+```
