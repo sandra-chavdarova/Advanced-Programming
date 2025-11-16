@@ -1,6 +1,4 @@
 package ExercisesFirstPartialExam;
-//TODO
-// 16ta zadaca
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
