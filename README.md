@@ -6,3 +6,5 @@ The exercises are solved using Java.
 - Inheritance, polymorphism and interfaces
 - Lambda Expressions and Functional Interfaces
 - Generic programming, generic functions, generic classes, generic data structures
+- Arrays and sets, reading from SI, comparing using Comparable and Comparator
+- Maps
