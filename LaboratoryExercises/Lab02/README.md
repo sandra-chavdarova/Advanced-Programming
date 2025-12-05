@@ -1,5 +1,5 @@
 # Date and Time
-## 1. LocalDate
+## 1. [LocalDate](DateAndTime/LocalDateTest.java)
 Довршете ги методите
 
 Output:
@@ -15,7 +15,7 @@ true
 P1M20D
 ```
 
-## 2. LocalDateTime
+## 2. [LocalDateTime](DateAndTime/LocalDateTimeTest.java)
 Output:
 ```
 2015-06-20T23:07:30
@@ -27,7 +27,7 @@ Output:
 2015-06-18T23:07:30.500 2015-06-18T23:07:30.500
 ```
 
-## 3. LocalTime
+## 3. [LocalTime](DateAndTime/LocalTimeTest.java)
 Output:
 ```
 23:07
@@ -42,7 +42,7 @@ true
 ```
 
 # Generics
-## 4. Resizable Array
+## 4. [Resizable Array](Generics/ResizableArrayTest.java)
 Да се напише класа **ResizableArray** која ќе претставува поле (низа) со променлива должина. Класата може да чува елементи од било кој тип (треба да биде генеричка со еден параметар T) и треба да ги има дефинирано следните методи:
 - ResizableArray() - креира ново празно поле
 - addElement(T element) - додава нов елемент во полето (доколку нема доволно место го зголемува капацитетот на полето).
@@ -107,7 +107,7 @@ false
 true
 ```
 
-## 5. Timestamp
+## 5. [Timestamp](Generics/SchedulerTest.java)
 Треба да се развие класа **Timestamp** која претставува пар на објекти од кои едниот е секогаш од тип LocalDateTime, а другиот објект е од генеричкиот тип T. Класата Timestamp ги нуди следниве функционалности:
 - Timestamp(LocalDateTime time, T element) - конструктор
 - getTime():LocalDateTime
@@ -138,7 +138,7 @@ Output:
 test
 ```
 
-## 6. Queuе
+## 6. [Queuе](Generics/QueueTest.java)
 Треба да се развие класа **Queuе** која претставува податочна структура ред, a во позадина e имплементирана како поврзана листа. Прво треба да се напише класа за еден елемент во листата (еден јазел) Node. Kласаta **Node** треба да има еден генерички параметар Т кој се однесува на елементот во јазелот и една референца кон следниот јазел во листата. Поформално класата Node треба да ги нуди следниве методи:
 - Node(T element, Node<T> next) - конструктор кој ги иницијализира двете променливи
 - getElement():T
@@ -225,7 +225,7 @@ Queue inspect? - test
 Queue peek? - sample
 ```
 
-## 7. Complex Number
+## 7. [Complex Number](Generics/ComplexNumberTest.java)
 Треба да се развие генеричка класа за работа со комплексни броеви **ComplexNumber** со два генерички параметри T и U кои мора да бидат од некоја класа која наследува од класата Number (T extends Number). ComplexNumber има две променливи од кои едната се однесува на реалниот дел, а другата на имагинарниот дел и треба да ги имплементира следните методи:
 - ComplexNumber(T real, U imaginary) - конструктор кој ги иницијализира сите променливи
 - getReal():T
