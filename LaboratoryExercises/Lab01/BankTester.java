@@ -1,9 +1,244 @@
-package LaboratoryExercises.Lab01.BankArraySolution;
-
-import LaboratoryExercises.Lab01.BankArraySolution.*;
+package LaboratoryExercises.Lab01;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.Objects;
+import java.util.Random;
+import java.util.Arrays;
+
+class Account {
+    private String name;
+    private long id;
+    private double balance;
+
+    public Account(String name, double balance) {
+        this.name = name;
+        this.balance = balance;
+        Random random = new Random();
+        id = random.nextLong();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Name: %s\nBalance: %.2f$\n", this.name, this.balance);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return id == account.id && Double.compare(balance, account.balance) == 0 && Objects.equals(name, account.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, id, balance);
+    }
+}
+
+abstract class Transaction {
+    private long fromId;
+    private long toId;
+    private String description;
+    private double amount;
+
+    public Transaction(long fromId, long toId, String description, double amount) {
+        this.fromId = fromId;
+        this.toId = toId;
+        this.description = description;
+        this.amount = amount;
+    }
+
+    public long getFromId() {
+        return fromId;
+    }
+
+    public long getToId() {
+        return toId;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return fromId == that.fromId && toId == that.toId && Double.compare(amount, that.amount) == 0 && Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fromId, toId, description, amount);
+    }
+}
+
+class FlatAmountProvisionTransaction extends Transaction {
+    private double flatProvision;
+
+    public FlatAmountProvisionTransaction(long fromId, long toId, double amount, double flatProvision) {
+        super(fromId, toId, "FlatAmount", amount);
+        this.flatProvision = flatProvision;
+    }
+
+    public double getFlatAmount() {
+        return getAmount() + flatProvision;
+    }
+
+    public double getFlatProvision() {
+        return flatProvision;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        FlatAmountProvisionTransaction that = (FlatAmountProvisionTransaction) o;
+        return Double.compare(flatProvision, that.flatProvision) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), flatProvision);
+    }
+}
+
+class FlatPercentProvisionTransaction extends Transaction {
+    private double centsPerDollar;
+
+    public FlatPercentProvisionTransaction(long fromId, long toId, double amount, double centsPerDollar) {
+        super(fromId, toId, "FlatPercent", amount);
+        this.centsPerDollar = centsPerDollar;
+    }
+
+    public double getPercent() {
+        return getAmount() * (1 + centsPerDollar / 100);
+    }
+
+    public double getCentsPerDollar() {
+        return centsPerDollar / 100;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        FlatPercentProvisionTransaction that = (FlatPercentProvisionTransaction) o;
+        return Double.compare(centsPerDollar, that.centsPerDollar) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), centsPerDollar);
+    }
+}
+
+
+class Bank {
+    private Account[] accounts;
+    private String name;
+    private double transfers;
+    private double provisions;
+
+    public Bank(String name, Account[] accounts) {
+        this.accounts = accounts;
+        this.name = name;
+        this.transfers = 0;
+        this.provisions = 0;
+    }
+
+    public boolean makeTransaction(Transaction t) {
+        int indexFrom = -1;
+        int indexTo = -1;
+        for (int i = 0; i < accounts.length; i++) {
+            if (accounts[i].getId() == t.getFromId())
+                indexFrom = i;
+            if (accounts[i].getId() == t.getToId())
+                indexTo = i;
+        }
+        double transfer = 0;
+        double provision = 0;
+        if (t instanceof FlatAmountProvisionTransaction) {
+            FlatAmountProvisionTransaction f = (FlatAmountProvisionTransaction) t;
+            transfer = f.getAmount();
+            provision = f.getFlatProvision();
+        } else if (t instanceof FlatPercentProvisionTransaction) {
+            FlatPercentProvisionTransaction f = (FlatPercentProvisionTransaction) t;
+            transfer = f.getAmount();
+            provision = transfer * f.getCentsPerDollar();
+        }
+        double amount = transfer + provision;
+        if (indexFrom == -1 || indexTo == -1 || accounts[indexFrom].getBalance() < amount) {
+            return false;
+        }
+        accounts[indexFrom].setBalance(accounts[indexFrom].getBalance() - amount);
+        accounts[indexTo].setBalance(accounts[indexTo].getBalance() + transfer);
+        transfers += transfer;
+        provisions += provision;
+        return true;
+    }
+
+    public double totalTransfers() {
+        return transfers;
+    }
+
+    public double totalProvision() {
+        return provisions;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Name: %s\n\n", name));
+        for (int i = 0; i < accounts.length; i++) {
+            sb.append(String.format("%s", accounts[i]));
+        }
+        return sb.toString();
+    }
+
+    public Account[] getAccounts() {
+        return accounts;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bank bank = (Bank) o;
+        return Double.compare(transfers, bank.transfers) == 0 && Double.compare(provisions, bank.provisions) == 0 && Objects.equals(name, bank.name) && Objects.deepEquals(accounts, bank.accounts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, Arrays.hashCode(accounts), transfers, provisions);
+    }
+}
+
 
 public class BankTester {
     public static void main(String[] args) {
@@ -160,6 +395,4 @@ public class BankTester {
         }
         return null;
     }
-
-
 }

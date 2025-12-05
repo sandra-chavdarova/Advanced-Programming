@@ -1,4 +1,4 @@
-package LaboratoryExercises.Lab01.Hospital;
+package LaboratoryExercises.Lab01;
 
 import java.util.Scanner;
 import java.util.function.Predicate;
