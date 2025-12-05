@@ -26,7 +26,7 @@ last
 after_inside1 , after_inside2 , before_inside , last , next ,
 ```
 
-2. [Faculty](SetsTest.java)
+# 2. [Faculty](SetsTest.java)
 Вашата задача е да ги имплементирате класите Student и Faculty според следниве спецификации:
 
 Класата Student:
@@ -56,7 +56,7 @@ Student{id='S002', grades=[7, 8, 9]}
 Student{id='S003', grades=[6, 6, 7, 8]}
 ```
 
-3. [Term Frequency](TermFrequencyTest.java)
+# 3. [Term Frequency](TermFrequencyTest.java)
 Да се развие класа TermFrequency која ќе брои колку пати се јавува секој збор во даден текст (String). Притоа да не се прави разлика меѓу мали и големи букви и да се игнорираат интерпукциските знаци (запирка, точка).
 Класата треба да ги има следните методи:
 - TermFrequency(InputStream inputStream, String[] stopWords) - конструктор кој како аргумент го прима влезниот тек од кој се чита текстот кој треба да се обработи и низа од зборови кои треба да се игнорираат (да не се бројат).
