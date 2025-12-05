@@ -1,4 +1,4 @@
-# 1. Movie Theater
+# 1. [Movie Theater](MovieTheaterTester.java)
 Имплементирајте систем за кино - MovieTheater. Киното ќе води листа од филмови кои ќе може да се сортираат по наслов, година и рејтинзи.
 
 Класа Movie
@@ -7,7 +7,7 @@
 - year: int - година на издавање
 - avgRating: double - процечна оцена
 - Да се имплементира toString() кој ќе го печати филмот во следниот формат:
-Наслов, Жанр, Година, Оцена
+<br>Наслов, Жанр, Година, Оцена
 
 Класа MovieTheater
 - movies: ArrayList<Movie> - листа на филмови во Киното
@@ -158,7 +158,7 @@ The Batman, Action, 2022, 8.41
 Oppenheimer, Biography, 2023, 9.59
 ```
 
-# 2. Ad Network
+# 2. [Ad Network](AdNetworkTest.java)
 Да се имплементира симулација на мрежа за прикажување реклами (Ad Network), која ги чита податоците за рекламите и за едно барање за прикажување реклама, а потоа ги избира најрелевантните реклами според комбинација од неколку фактори.
 
 Да се имплементира класа Ad која ќе претставува една реклама. Класата треба да ги содржи следните атрибути:
@@ -170,7 +170,7 @@ Oppenheimer, Biography, 2023, 9.59
 
 Класата треба да има:
 - toString() кој ќе го прикажува објектот во следниот формат:
-ID CATEGORY (bid=…, ctr=…%) CONTENT
+<br>ID CATEGORY (bid=…, ctr=…%) CONTENT
 
 Да имплементира интерфејсот Comparable така што „природниот редослед“ ќе биде по bidValue во опаѓачки редослед, а доколку bidValue е ист, според id во растечки редослед.
 
@@ -183,30 +183,30 @@ ID CATEGORY (bid=…, ctr=…%) CONTENT
 
 Класата треба да има:
 - toString() кој ќе го прикажува објектот во следниот формат:
-ID [CATEGORY] (floor=…): KEYWORDS
+<br>ID [CATEGORY] (floor=…): KEYWORDS
 
 Да се имплементира класа AdNetwork која ќе ја претставува мрежата на реклами и ќе управува со нивното прикажување.
 Класата треба да има атрибут:
 - ads:АrrayList<Ad> – листа со сите реклами
 И следните методи:
 - void readAds(InputStream in) - метод кој чита реклами од влезен тек користејќи BufferedReader. За секој ред се креира објект од класата Ad и се додава во листата ads. Секој ред е во следниот формат:
-ID CATEGORY BID_VALUE CTR CONTENT
-пример: AD001 tech 2.5 0.12 Amazing new phone
+<br>ID CATEGORY BID_VALUE CTR CONTENT
+<br>пример: AD001 tech 2.5 0.12 Amazing new phone
 - List placeAds(InputStream inputStream, int k, OutputStream outputStream) - метод кој:
 
   1. Чита едно барање за реклама (AdRequest) од дадениот влезен тек во формат:
-     ID CATEGORY FLOOR_BID KEYWORD1 KEYWORD2 KEYWORD3…
-     пример: AR001 tech 2.0 technology phone application inches
+     <br>ID CATEGORY FLOOR_BID KEYWORD1 KEYWORD2 KEYWORD3…
+     <br>пример: AR001 tech 2.0 technology phone application inches
   2. Ги исклучува сите реклами кои имаат bidValue помал од floorBid во барањето за реклама
   3. За секоја реклама ја пресметува вкупната вредност (score) според следната формула:
-     totalScore = relevanceScore(ad, request) + x * bidValue + y * ctr
-     каде: relevanceScore(ad, request) е функција која дава поени според категорија и клучни зборови (оваа функција е веќе дадена и не треба да се менува),
+     <br>totalScore = relevanceScore(ad, request) + x * bidValue + y * ctr
+     <br>каде: relevanceScore(ad, request) е функција која дава поени според категорија и клучни зборови (оваа функција е веќе дадена и не треба да се менува),
      x = 5.0 и y = 100.0 се константи со кои се нагласува влијанието на bid и CTR.
   4. Рекламите се подредуваат според totalScore во опаѓачки редослед, се земаат топ k реклами, а потоа се подредуваат според „природниот“ редослед на класата.
   5. Резултатите се печатат со PrintWriter во дадениот излезен тек во следниот формат:
-     Top ads for request AR001:
-     AD003 tech (bid=3.00, ctr=9.00%) Powerful gaming laptop
-     AD001 tech (bid=2.50, ctr=12.00%) Amazing new phone
+     <br>Top ads for request AR001:
+     <br>AD003 tech (bid=3.00, ctr=9.00%) Powerful gaming laptop
+     <br>AD001 tech (bid=2.50, ctr=12.00%) Amazing new phone
      …
 
 Input:
