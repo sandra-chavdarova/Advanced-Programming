@@ -67,3 +67,44 @@
   -  Новото име треба да биде "DeptA & DeptB & DeptC & DeptD".
   -  Спои ги нивните курсеви.
   -  Врати нов University со ажурирана листа.
+
+Input:
+```
+getAllCourseNames
+```
+Output:
+```
+Testing method: getAllCourseNames
+Structural Programming
+Algorithms
+Object-Oriented Programming
+Advanced Programming
+Calculus I
+Linear Algebra
+Statistics
+Calculus II
+Mechanics
+Electromagnetism
+Quantum Physics
+Optics
+Organic Chemistry
+Inorganic Chemistry
+Physical Chemistry
+Analytical Chemistry
+Cell Biology
+Genetics
+Ecology
+Biochemistry
+Microeconomics
+Macroeconomics
+Finance
+Accounting
+English Language
+German Language
+French Language
+Italian Language
+Ancient History
+Medieval History
+Modern History
+Contemporary History
+```
