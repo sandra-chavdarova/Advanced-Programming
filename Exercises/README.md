@@ -653,7 +653,7 @@ Output:
 Denominator cannot be zero
 ```
 
-# 15. [Applicant Evaluation](ApplicantEvaluationTest.java)
+# 13. [Applicant Evaluation](ApplicantEvaluationTest.java)
 Дадена е класата Applicant (кандидат за евалуација) со име, кредитен резултат (credit score), работен стаж (experience) и дали има криминално досие (criminal record). Исто така, даден е интерфејс за евалуација на кандидати Evaluator со еден метод boolean evaluate(Applicant applicant) и енумерација со следните видови на евалуатори:
 
 Кандидатот ја поминува евалуацијата (методот враќа true) ако:
@@ -690,7 +690,101 @@ Criminal record: Yes
 Evaluation type: MORE_EXPERIENCE
 Applicant is ACCEPTED
 ```
+# 14. [Components (Composite Pattern)](ComponentTest.java)
+Да се дефинира класа Component во која се чуваат:
+- бојата
+- тежината
+- колекција од внатрешни компоненти (референци од класата Component).
 
+Во оваа класа да се дефинираат методите:
+- Component(String color, int weight) - конструктор со аргументи боја и тежина
+- void addComponent(Component component) - за додавање нова компонента во внатрешната колекција (во оваа колекција компонентите секогаш се подредени според тежината во растечки редослед, ако имаат иста тежина подредени се алфабетски според бојата).
+
+Да се дефинира класа Window во која се чуваат:
+- име
+- компоненти.
+
+Во оваа класа да се дефинираат следните методи:
+- Window(String) - конструктор
+- void addComponent(int position, Component component) - додава нова компонента на дадена позиција (цел број). На секоја позиција може да има само една компонента, ако се обидеме да додадеме компонента на зафатена позиција треба да се фрли исклучок од класата InvalidPositionException со порака Invalid position [pos], alredy taken!. Компонентите се подредени во растечки редослед според позицијата.
+- String toString() - враќа стринг репрезентација на објектот (дадена во пример излезот)
+- void changeColor(int weight, String color) - ја менува бојата на сите компоненти со тежина помала од проследената
+- void switchComponents(int pos1, int pos2) - ги заменува компонените од проследените позиции.
+
+Input:
+
+```angular2html
+FIREFOX
+1
+RED
+30
+3
+MAGENTA
+90
+0
+1
+2
+GREEN
+40
+3
+RED
+50
+2
+BLUE
+50
+2
+CYAN
+60
+1
+YELLOW
+80
+3
+WHITE
+35
+0
+2
+4
+60
+BLACK
+1 2
+```
+
+Output:
+
+```angular2html
+=== ORIGINAL WINDOW ===
+WINDOW FIREFOX
+1:30:RED
+---40:GREEN
+------50:BLUE
+---------60:CYAN
+------50:RED
+---90:MAGENTA
+2:80:YELLOW
+---35:WHITE
+
+=== CHANGED COLOR (60, BLACK) ===
+WINDOW FIREFOX
+1:30:BLACK
+---40:BLACK
+------50:BLACK
+---------60:CYAN
+------50:BLACK
+---90:MAGENTA
+2:80:YELLOW
+---35:BLACK
+
+=== SWITCHED COMPONENTS 1 <-> 2 ===
+WINDOW FIREFOX
+1:80:YELLOW
+---35:BLACK
+2:30:BLACK
+---40:BLACK
+------50:BLACK
+---------60:CYAN
+------50:BLACK
+---90:MAGENTA
+```
 
 # 15. [Weather Station](WeatherStationTest.java)
 Во една метеролошка станица на секои 5 минути пристигнуваат податоци за временските услови (температура, влажност на воздухот, ветар, видливост, време). Пример за вакви податоци:
