@@ -1,6 +1,6 @@
 // had to change from Date to LocalDateTime
 
-package ExercisesFirstPartialExam;
+package Exercises;
 
 import java.text.ParseException;
 import java.time.Duration;

@@ -1,4 +1,4 @@
-package ExercisesFirstPartialExam;
+package Exercises;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
